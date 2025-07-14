@@ -145,6 +145,19 @@
         }
     });
 
+    scene.onPointerDown = (evt, pickInfo) => {
+        if(dot.isVisible)
+        {
+            box.isVisible = true;
+
+            //box.scaling = dot.scaling;
+            box.rotationQuaternion = dot.rotationQuaternion.clone();
+            box.position = dot.position.clone();
+
+            dot.isVisible = false;
+        }
+    }
+
     return scene;
 
 }
