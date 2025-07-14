@@ -123,12 +123,16 @@
         }
     });
 
+    let markerPosition = new BABYLON.Vector3();
 
     scene.onPointerDown = (evt, pickInfo) => {
         debugText = "onPointerDown!!!";
         if(hitTest)
         {
             box.isVisible = true;
+            hitTest.transformationMatrix.decompose(undefined, undefined, markerPosition);
+
+            box.position = markerPosition;
 
             
         }
