@@ -63,6 +63,9 @@
         var scene = null;
         var sceneToRender = null;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
+
+        // ADD CODE HERE =================================================================================
+
         const createScene = async() => {
     const scene = new BABYLON.Scene(engine);
 
@@ -127,6 +130,12 @@
     return scene;
 
 }
+
+
+    // END =========================================================================
+
+
+
                 window.initFunction = async function() {
                     
                     
