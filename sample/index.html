@@ -78,7 +78,8 @@
     const light = new BABYLON.HemisphericLight("light1", 
         new BABYLON.Vector3(0,1,0));
 
-    //const box = BABYLON.MeshBuilder.CreateBox("box1", {});
+    const box = BABYLON.MeshBuilder.CreateBox("box1", {});
+    box.isVisible = false;
 
     // Adding debug text.
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -130,6 +131,15 @@
             deviceSource.onInputChangedObservable.add((eventData) => {
                 if (eventData.inputIndex !== BABYLON.PointerInput.Move) {
                     debugText.text = "Tap detected";
+
+                    box.isVisible = true;
+
+                    //box.scaling = dot.scaling;
+                    box.rotationQuaternion = dot.rotationQuaternion.clone();
+                    box.position = dot.position.clone();
+
+                    dot.isVisible = false;
+
                 }
             });
         }
