@@ -130,10 +130,10 @@
         if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
         {
             box.isVisible = true;
-            //hitTest.transformationMatrix.decompose(undefined, undefined, markerPosition);
-
+            hitTest.transformationMatrix.decompose(undefined, undefined, markerPosition);
+            debugText.text = markerPosition;
             //box.position = markerPosition;
-
+            
             
         }
     }
