@@ -123,29 +123,9 @@
         }
     });
 
-    // Putting Object on touch
-    const deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
-
-    deviceSourceManager.onDeviceConnectedObservable.add((deviceSource) => {
-        if (deviceSource.deviceType === BABYLON.DeviceType.Mouse || deviceSource.deviceType === BABYLON.DeviceType.Touch) {
-            deviceSource.onInputChangedObservable.add((eventData) => {
-                if (eventData.inputIndex !== BABYLON.PointerInput.Move) {
-                    debugText.text = "Tap detected";
-
-                    box.isVisible = true;
-
-                    //box.scaling = dot.scaling;
-                    box.rotationQuaternion = dot.rotationQuaternion.clone();
-                    box.position = dot.position.clone();
-
-                    dot.isVisible = false;
-
-                }
-            });
-        }
-    });
 
     scene.onPointerDown = (evt, pickInfo) => {
+        debugText = "onPointerDown!!!";
         if(dot.isVisible)
         {
             box.isVisible = true;
