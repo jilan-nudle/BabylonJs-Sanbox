@@ -137,6 +137,8 @@
         {
             box.isVisible = true;
             box.position = markerPosition.clone();
+            box.rotationQuaternion = markerRotation.clone();
+            box.scaling = markerRotation.markerScaling();
 
             
         }
