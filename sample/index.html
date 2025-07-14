@@ -113,6 +113,8 @@
     dot.isVisible = false;
 
     let markerPosition = new BABYLON.Vector3();
+    let markerScaling = new BABYLON.Vector3();
+    let markerRotation = new BABYLON.Quaternion();
 
     hitTest.onHitTestResultObservable.add((result) => {
         if(result.length)
@@ -120,7 +122,7 @@
             dot.isVisible = true;
             result[0].transformationMatrix.decompose(dot.scaling, dot.rotationQuaternion, dot.position);
             
-            result[0].transformationMatrix.decompose(undefined, undefined, markerPosition);
+            result[0].transformationMatrix.decompose(markerScaling, markerRotation, markerPosition);
             debugText.text = markerPosition;
         }else
         {
