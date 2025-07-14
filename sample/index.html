@@ -106,13 +106,8 @@
 
 
     // Creating dot
-    const dot = BABYLON.MeshBuilder.CreateSphere(
-        "dot",
-        {
-            diameter: 0.3,
-        },
-        scene,
-    );
+    const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.15, thickness: 0.05, tessellation: 32 });
+    
     debugText.text = "X4";
     dot.isVisible = false;
 
