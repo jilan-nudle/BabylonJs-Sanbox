@@ -107,7 +107,7 @@
 
     // Creating dot
     const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.15, thickness: 0.05, tessellation: 32 });
-    
+
     debugText.text = "X4";
     dot.isVisible = false;
 
@@ -119,6 +119,19 @@
         }else
         {
             dot.isVisible = false;
+        }
+    });
+
+    // Putting Object on touch
+    const deviceSourceManager = new BABYLON.DeviceSourceManager(scene.getEngine());
+
+    deviceSourceManager.onDeviceConnectedObservable.add((deviceSource) => {
+        if (deviceSource.deviceType === BABYLON.DeviceType.Mouse || deviceSource.deviceType === BABYLON.DeviceType.Touch) {
+            deviceSource.onInputChangedObservable.add((eventData) => {
+                if (eventData.inputIndex !== BABYLON.PointerInput.Move) {
+                    debugText.text = "Tap detected";
+                }
+            });
         }
     });
 
