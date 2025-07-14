@@ -134,7 +134,7 @@
         if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
         {
             box.isVisible = true;
-            box.position = markerPosition;
+            box.position = markerPosition.clone();
 
             
         }
