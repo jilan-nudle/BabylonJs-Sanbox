@@ -126,7 +126,7 @@
 
     scene.onPointerDown = (evt, pickInfo) => {
         debugText = "onPointerDown!!!";
-        if(dot.isVisible)
+        if(hitTest && dot.isVisible)
         {
             box.isVisible = true;
 
