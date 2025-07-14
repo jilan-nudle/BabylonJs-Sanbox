@@ -126,13 +126,13 @@
     let markerPosition = new BABYLON.Vector3();
 
     scene.onPointerDown = (evt, pickInfo) => {
-        debugText.text = "onPointerDown!!!";
-        if(hitTest)
+        debugText.text = "xr.baseExperience.state";
+        if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
         {
             box.isVisible = true;
-            hitTest.transformationMatrix.decompose(undefined, undefined, markerPosition);
+            //hitTest.transformationMatrix.decompose(undefined, undefined, markerPosition);
 
-            box.position = markerPosition;
+            //box.position = markerPosition;
 
             
         }
