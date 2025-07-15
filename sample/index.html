@@ -150,10 +150,15 @@
     label.thickness = 1;
     label.zIndex = 5;
 
+    const caption = new BABYLON.GUI.TextBlock();
+    caption.color = "white";
+    caption.text = "sample text";
+    caption.fontSize = "36px";
+
+    label.addControl(caption);
+
     advancedTexture.addControl(label);
 
-    const caption = new BABYLON.GUI.TextBlock();
-    label.addControl(caption);
 
     scene.onPointerDown = (evt, pickInfo) => {
         debugText.text = "xr.baseExperience.state";
@@ -177,6 +182,19 @@
 
         }
     }
+
+
+    const previousBtn = BABYLON.GUI.Button.CreateSimpleButton("prevBtn", "Previous");
+    previousBtn.width = "120px";
+    previousBtn.height = "50px";
+    previousBtn.color = "white";
+    previousBtn.background = "gray";
+    previousBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+    previousBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+    previousBtn.left = "20px";
+    previousBtn.bottom = "20px";
+
+    advancedTexture.addControl(previousBtn);
 
 
     return scene;
