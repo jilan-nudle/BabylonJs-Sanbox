@@ -208,6 +208,19 @@
     nextBtn.bottom = "20px";
     advancedTexture.addControl(nextBtn);
 
+    const animations = [...asset.animationGroups];
+    let animIndex = 0;
+
+    previousBtn.onPointerClickObservable.add(() => {
+        
+    });
+
+    nextBtn.onPointerClickObservable.add(() => {
+        animIndex++;
+        debugText.text = animations[animIndex];
+        animations[animIndex].play();
+    });
+
 
 
 
