@@ -226,9 +226,12 @@
         if(animIndex <= 0){
             return;
         }
+        animations[animIndex].stop();
         animIndex--;
         debugText.text = animations[animIndex];
         animations[animIndex].play();
+
+        caption.text = animCaptions[animIndex];
         
     });
 
@@ -236,9 +239,12 @@
         if(animIndex >= animations.length - 1){
             return;
         }
+            animations[animIndex].stop();
             animIndex++;
             debugText.text = animations[animIndex];
             animations[animIndex].play();
+
+        caption.text = animCaptions[animIndex];
 
     });
 
