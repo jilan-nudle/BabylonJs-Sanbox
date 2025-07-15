@@ -78,8 +78,18 @@
     const light = new BABYLON.HemisphericLight("light1", 
         new BABYLON.Vector3(0,1,0));
 
-    const box = BABYLON.MeshBuilder.CreateBox("box1", {});
-    box.isVisible = false;
+    // Public vars
+    let isPlaced = false;
+
+    // end
+
+    /*const box = BABYLON.MeshBuilder.CreateBox("box1", {});
+    box.isVisible = false;*/
+
+    const model = "assets/animated_triceratops_skeleton.glb";
+    const asset = await BABYLON.LoadAssetContainerAsync(model, scene);
+
+
 
     // Adding debug text.
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
@@ -109,7 +119,7 @@
     // Creating dot
     const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.15, thickness: 0.05, tessellation: 32 });
 
-    debugText.text = "X4";
+    debugText.text = "X5";
     dot.isVisible = false;
 
     let markerPosition = new BABYLON.Vector3();
@@ -117,7 +127,7 @@
     let markerRotation = new BABYLON.Quaternion();
 
     hitTest.onHitTestResultObservable.add((result) => {
-        if(result.length)
+        if(result.length && isPlaced == false)
         {
             dot.isVisible = true;
             result[0].transformationMatrix.decompose(dot.scaling, dot.rotationQuaternion, dot.position);
@@ -131,18 +141,43 @@
     });
 
 
+    const label = new BABYLON.GUI.Rectangle("label");
+    label.background = "black"
+    label.height = "60px";
+    label.alpha = 0.5;
+    label.width = "200px";
+    label.cornerRadius = 20;
+    label.thickness = 1;
+    label.zIndex = 5;
+
+    advancedTexture.addControl(label);
+
+    const caption = new BABYLON.GUI.TextBlock();
+    label.addControl(caption);
+
     scene.onPointerDown = (evt, pickInfo) => {
         debugText.text = "xr.baseExperience.state";
-        if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
+        if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR && isPlaced == false)
         {
-            box.isVisible = true;
-            box.position = markerPosition.clone();
-            box.rotationQuaternion = markerRotation.clone();
-            box.scaling = markerScaling.clone();
+            isPlaced = true;
+            asset.addAllToScene();
+            dot.isVisible = false;
 
-            
+            label.linkWithMesh(asset.meshes[0]);
+
+            asset.meshes.forEach((mesh) => {
+                if(mesh instanceof BABYLON.Mesh)
+                {
+                    mesh.isVisible = true;
+                    mesh.position = markerPosition.clone();
+                    mesh.rotationQuaternion = markerRotation.clone();
+                    mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
+                }
+            });
+
         }
     }
+
 
     return scene;
 
