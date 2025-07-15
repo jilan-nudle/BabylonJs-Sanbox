@@ -163,6 +163,8 @@
 
     advancedTexture.addControl(label);
 
+    label.isVisible = false;
+
 
     scene.onPointerDown = (evt, pickInfo) => {
         debugText.text = "xr.baseExperience.state";
@@ -236,10 +238,12 @@
         animations[animIndex].play();
 
         caption.text = animCaptions[animIndex];
+        label.isVisible = true;
         
     });
 
     nextBtn.onPointerClickObservable.add(() => {
+
         if(animIndex >= animations.length - 1){
             return;
         }
@@ -249,6 +253,7 @@
             animations[animIndex].play();
 
         caption.text = animCaptions[animIndex];
+        label.isVisible = true;
 
     });
 
