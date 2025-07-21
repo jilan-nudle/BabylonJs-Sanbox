@@ -78,6 +78,28 @@
     const light = new BABYLON.HemisphericLight("light1", 
         new BABYLON.Vector3(0,1,0));
 
+    // JUST ADDED
+
+    var plane = BABYLON.Mesh.CreatePlane("plane", 2);
+    plane.parent = sphere;
+    plane.position.y = 2;
+
+    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+
+    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Click Me");
+    button1.width = 1;
+    button1.height = 0.4;
+    button1.color = "white";
+    button1.fontSize = 50;
+    button1.background = "green";
+    button1.onPointerUpObservable.add(function() {
+        button1.textBlock.text = "I was clicked!";
+    });
+    advancedTexture.addControl(button1);
+
+
+    // END
+
     // Public vars
     let isPlaced = false;
 
