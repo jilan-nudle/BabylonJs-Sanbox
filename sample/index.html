@@ -121,7 +121,7 @@
         customerDialog.zIndex = 5;
 
         const panel = new BABYLON.GUI.StackPanel();
-        customerDialog.addControl(panel);
+        
 
         const caption = new BABYLON.GUI.TextBlock();
         caption.color = "white";
@@ -131,11 +131,12 @@
 
         var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
         nextButton.background = "gray";
-        nextButton.height = "0.2"
-        nextButton.width = "0.2"
+        nextButton.height = "0.2";
+        nextButton.width = "0.2";
 
         panel.addControl(caption);
         panel.addControl(nextButton);
+        customerDialog.addControl(panel);
 
         advancedTexture.addControl(customerDialog);
         //customerDialog.isVisible = false;
