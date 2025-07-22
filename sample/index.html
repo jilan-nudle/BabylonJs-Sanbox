@@ -107,7 +107,7 @@
     }
 
     const scene1 = async() => {
-        const customer = await BABYLON.LoadAssetContainerAsync("assets/animated_triceratops_skeleton.glb", scene);
+        const customer = await BABYLON.LoadAssetContainerAsync("assets/cameraman_walking.glb", scene);
      
         scene.onPointerDown = (evt, pickInfo) => {
             if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
