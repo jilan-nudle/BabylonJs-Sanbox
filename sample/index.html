@@ -113,17 +113,18 @@
         const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
 
         customerDialog.background = "black"
-        customerDialog.height = "250px";
+        customerDialog.height = "300px";
         customerDialog.alpha = 0.5;
-        customerDialog.width = "250px";
+        customerDialog.width = "600px";
         customerDialog.cornerRadius = 20;
         customerDialog.thickness = 1;
         customerDialog.zIndex = 5;
 
         const caption = new BABYLON.GUI.TextBlock();
         caption.color = "white";
-        caption.text = "Hi! I'm terry! Could \nyou please do a maintenance check on my car?";
-        caption.fontSize = "36px";
+        caption.text = "Hi! I'm terry! Could you please do a maintenance check on my car?";
+        caption.fontSize = "30px";
+        caption.textWrapping = true;
 
         customerDialog.addControl(caption);
         advancedTexture.addControl(customerDialog);
