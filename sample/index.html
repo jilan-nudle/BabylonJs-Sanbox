@@ -120,6 +120,9 @@
         customerDialog.thickness = 1;
         customerDialog.zIndex = 5;
 
+        const panel = new BABYLON.GUI.StackPanel();
+        customerDialog.addControl(panel);
+
         const caption = new BABYLON.GUI.TextBlock();
         caption.color = "white";
         caption.text = "Hi! I'm terry! Could you please do a maintenance check on my car?";
@@ -131,8 +134,8 @@
         nextButton.height = "0.2"
         nextButton.width = "0.2"
 
-        customerDialog.addControl(caption);
-        customerDialog.addControl(nextButton);
+        panel.addControl(caption);
+        panel.addControl(nextButton);
 
         advancedTexture.addControl(customerDialog);
         //customerDialog.isVisible = false;
