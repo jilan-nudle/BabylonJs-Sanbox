@@ -63,237 +63,57 @@
         var scene = null;
         var sceneToRender = null;
         var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
-
-        // ADD CODE HERE =================================================================================
-
-        const createScene = async() => {
-    const scene = new BABYLON.Scene(engine);
-
-    // camera
-    const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 3, 3), scene);
-    camera.setTarget(BABYLON.Vector3.Zero());
-
-    camera.attachControl(canvas, true);
-
-    const light = new BABYLON.HemisphericLight("light1", 
-        new BABYLON.Vector3(0,1,0));
-
-    // JUST ADDED
-
-    var plane = BABYLON.Mesh.CreatePlane("plane", 2);
+        var createScene = async function () {
     
-    plane.position.set(0,0,0);
-    //plane.position.y = 2;
+    // =============== ENVIRONMENT =========================
 
-    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
-
-    var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Click Me");
-    button1.width = 1;
-    button1.height = 0.4;
-    button1.color = "white";
-    button1.fontSize = 50;
-    button1.background = "green";
-    button1.onPointerUpObservable.add(function() {
-        button1.textBlock.text = "I was clicked!";
-    });
-    advancedTexture.addControl(button1);
+    var scene = new BABYLON.Scene(engine);
+    
+    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+    camera.setTarget(BABYLON.Vector3.Zero());
+    camera.attachControl(canvas, true);
+    
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    light.intensity = 0.7;
 
 
-    // END
-
-    // Public vars
-    let isPlaced = false;
-
-    // end
-
-    /*const box = BABYLON.MeshBuilder.CreateBox("box1", {});
-    box.isVisible = false;*/
-
-    const model = "assets/animated_triceratops_skeleton.glb";
-    const asset = await BABYLON.LoadAssetContainerAsync(model, scene);
-
-
-
-    // Adding debug text.
-    var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-    var debugText = new BABYLON.GUI.TextBlock();
-    debugText.text = "NA";
-    debugText.color = "green";
-    advancedTexture.addControl(debugText);
-
-
-    // Enabling Augmented Reality
-    const xr = await scene.createDefaultXRExperienceAsync(
-        {
-            uiOptions:
-            {
-                sessionMode: "immersive-ar",
-            },
-            optionalFeatures: ["hit-test"],
-        }
-    );
-
-    // Enabling hit test
+    // =============== GLOBAL VARIABLES =========================
+    const xr = await scene.createDefaultXRExperienceAsync({uiOptions: {sessionMode: "immersive-ar",},optionalFeatures: ["hit-test"],});
     const featureManager = xr.baseExperience.featuresManager;
-    const hitTest = featureManager.enableFeature(BABYLON.WebXRHitTest, 
-        "latest");
+    const hitTest = featureManager.enableFeature(BABYLON.WebXRHitTest, "latest");
 
 
-    // Creating dot
-    const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.15, thickness: 0.05, tessellation: 32 });
+    // =============== SCENES =========================
 
-    debugText.text = "X6";
-    dot.isVisible = false;
+    const placeMarker = () => {
+        const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.09, thickness: 0.03, tessellation: 32 });
+        dot.isVisible = false;
 
-    let markerPosition = new BABYLON.Vector3();
-    let markerScaling = new BABYLON.Vector3();
-    let markerRotation = new BABYLON.Quaternion();
+        let markerPosition = new BABYLON.Vector3();
+        let markerScaling = new BABYLON.Vector3();
+        let markerRotation = new BABYLON.Quaternion();
 
-    hitTest.onHitTestResultObservable.add((result) => {
-        if(result.length && isPlaced == false)
-        {
-            dot.isVisible = true;
-            result[0].transformationMatrix.decompose(dot.scaling, dot.rotationQuaternion, dot.position);
-            
-            result[0].transformationMatrix.decompose(markerScaling, markerRotation, markerPosition);
-            debugText.text = markerPosition;
-        }else
-        {
-            dot.isVisible = false;
-        }
-    });
+        hitTest.onHitTestResultObservable.add((result) => {
+            if(result.length && isPlaced == false)
+            {
+                dot.isVisible = true;
+                result[0].transformationMatrix.decompose(markerScaling, markerRotation, markerPosition);
+            }else
+            {
+                dot.isVisible = false;
+            }
+        });
 
-
-    const label = new BABYLON.GUI.Rectangle("label");
-    label.background = "black"
-    label.height = "60px";
-    label.alpha = 0.5;
-    label.width = "200px";
-    label.cornerRadius = 20;
-    label.thickness = 1;
-    label.zIndex = 5;
-    label.adaptWidthToChildren = true;
-    label.adaptHeightToChildren = true;
-
-    const caption = new BABYLON.GUI.TextBlock();
-    caption.color = "white";
-    caption.text = "sample text";
-    caption.fontSize = "36px";
-    caption.textWrapping = true;
-    caption.resizeToFit = true;
-
-    label.addControl(caption);
-
-    advancedTexture.addControl(label);
-
-    label.isVisible = false;
-
-
-    scene.onPointerDown = (evt, pickInfo) => {
-        debugText.text = "xr.baseExperience.state";
-        if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR && isPlaced == false)
-        {
-            isPlaced = true;
-            asset.addAllToScene();
-            dot.isVisible = false;
-
-            label.linkWithMesh(asset.meshes[0]);
-
-            asset.meshes.forEach((mesh) => {
-                if(mesh instanceof BABYLON.Mesh)
-                {
-                    mesh.isVisible = true;
-                    mesh.position = markerPosition.clone();
-                    mesh.rotationQuaternion = markerRotation.clone();
-                    mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
-                    plane.position = markerPosition.clone();
-                }
-            });
-
-        }
     }
 
 
-    const previousBtn = BABYLON.GUI.Button.CreateSimpleButton("prevBtn", "Previous");
-    previousBtn.width = "120px";
-    previousBtn.height = "100px";
-    previousBtn.color = "white";
-    previousBtn.background = "gray";
-    previousBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-    previousBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-    previousBtn.left = "20px";
-    previousBtn.bottom = "20px";
 
-    advancedTexture.addControl(previousBtn);
-
-    // Next Button
-    const nextBtn = BABYLON.GUI.Button.CreateSimpleButton("nextBtn", "Next");
-    nextBtn.width = "120px";
-    nextBtn.height = "100px";
-    nextBtn.color = "white";
-    nextBtn.background = "gray";
-    nextBtn.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-    nextBtn.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-    nextBtn.right = "20px";
-    nextBtn.bottom = "20px";
-    advancedTexture.addControl(nextBtn);
-
-    const animations = [...asset.animationGroups];
-    let animIndex = 0;
-
-    let animCaptions = [
-        "Dinosaur is sleeping",
-        "Dinosaur is getting up",
-        "Dinosaur is roaring",
-        "Dinosaur is aggresive",
-        "Dinosaur is walking",
-        "Dinosaur is falling",
-    ]
-
-    console.log(animations);
-    debugText.isVisible = false;
-
-    previousBtn.onPointerClickObservable.add(() => {
-        if(animIndex <= 0){
-            return;
-        }
-        animations[animIndex].stop();
-        animIndex--;
-        debugText.text = animations[animIndex];
-        animations[animIndex].play();
-
-        caption.text = animCaptions[animIndex];
-        label.isVisible = true;
-        
-    });
-
-    nextBtn.onPointerClickObservable.add(() => {
-
-        if(animIndex >= animations.length - 1){
-            return;
-        }
-            animations[animIndex].stop();
-            animIndex++;
-            debugText.text = animations[animIndex];
-            animations[animIndex].play();
-
-        caption.text = animCaptions[animIndex];
-        label.isVisible = true;
-
-    });
-
-
+    // =============== MAIN =========================
+    placeMarker();
 
 
     return scene;
-
-}
-
-
-    // END =========================================================================
-
-
-
+};
                 window.initFunction = async function() {
                     
                     
