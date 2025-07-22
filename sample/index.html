@@ -132,7 +132,7 @@
 
      
         scene.onPointerDown = (evt, pickInfo) => {
-            if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR && isPlaced == true)
+            if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR && isPlaced == false)
             {
                 customer.addAllToScene();
                 dot.isVisible = false;
