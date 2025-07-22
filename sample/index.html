@@ -108,6 +108,21 @@
 
     const scene1 = async() => {
         const customer = await BABYLON.LoadAssetContainerAsync("assets/man_in_suit.glb", scene);
+        const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
+
+        customerDialog.background = "black"
+        customerDialog.height = "60px";
+        customerDialog.alpha = 0.5;
+        customerDialog.width = "200px";
+        customerDialog.cornerRadius = 20;
+        customerDialog.thickness = 1;
+        customerDialog.zIndex = 5;
+
+        const caption = new BABYLON.GUI.TextBlock();
+        caption.color = "white";
+        caption.text = "sample text";
+        caption.fontSize = "36px";
+
 
      
         scene.onPointerDown = (evt, pickInfo) => {
@@ -116,7 +131,7 @@
                 customer.addAllToScene();
                 dot.isVisible = false;
 
-                //label.linkWithMesh(customer.meshes[0]);
+                customerDialog.linkWithMesh(customer.meshes[0]);
 
                 customer.meshes.forEach((mesh) => {
                     if(mesh instanceof BABYLON.Mesh)
@@ -130,6 +145,10 @@
 
             }
         }
+
+
+
+
     }
 
 
