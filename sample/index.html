@@ -126,7 +126,12 @@
         caption.fontSize = "30px";
         caption.textWrapping = true;
 
+        var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
+        nextButton.background = "gray";
+
         customerDialog.addControl(caption);
+        customerDialog.addControl(nextButton);
+
         advancedTexture.addControl(customerDialog);
         customerDialog.isVisible = false;
 
@@ -141,8 +146,6 @@
 
                 customer.addAllToScene();
                 customerDialog.linkWithMesh(customer.meshes[0]);
-                customerDialog.linkOffsetY = 50;
-                customerDialog.linkOffsetY = 20;
 
 
                 customer.meshes.forEach((mesh) => {
