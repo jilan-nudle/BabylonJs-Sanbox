@@ -81,17 +81,17 @@
     const xr = await scene.createDefaultXRExperienceAsync({uiOptions: {sessionMode: "immersive-ar",},optionalFeatures: ["hit-test"],});
     const featureManager = xr.baseExperience.featuresManager;
     const hitTest = featureManager.enableFeature(BABYLON.WebXRHitTest, "latest");
+    const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.09, thickness: 0.03, tessellation: 32 });
+    let markerPosition = new BABYLON.Vector3();
+    let markerScaling = new BABYLON.Vector3();
+    let markerRotation = new BABYLON.Quaternion();
 
 
     // =============== SCENES =========================
 
     const placeMarker = () => {
-        const dot = BABYLON.MeshBuilder.CreateTorus('marker', { diameter: 0.09, thickness: 0.03, tessellation: 32 });
         dot.isVisible = false;
 
-        let markerPosition = new BABYLON.Vector3();
-        let markerScaling = new BABYLON.Vector3();
-        let markerRotation = new BABYLON.Quaternion();
 
         hitTest.onHitTestResultObservable.add((result) => {
             if(result.length)
@@ -104,14 +104,38 @@
                 dot.isVisible = false;
             }
         });
+    }
 
+    const scene1 = async() => {
+        const customer = await BABYLON.LoadAssetContainerAsync("assets/animated_triceratops_skeleton.glb", scene);
+     
+        scene.onPointerDown = (evt, pickInfo) => {
+            if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
+            {
+                customer.addAllToScene();
+                dot.isVisible = false;
+
+                //label.linkWithMesh(customer.meshes[0]);
+
+                customer.meshes.forEach((mesh) => {
+                    if(mesh instanceof BABYLON.Mesh)
+                    {
+                        mesh.isVisible = true;
+                        mesh.position = markerPosition.clone();
+                        mesh.rotationQuaternion = markerRotation.clone();
+                        mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
+                    }
+                });
+
+            }
+        }
     }
 
 
 
     // =============== MAIN =========================
     placeMarker();
-
+    scene1();
 
     return scene;
 };
