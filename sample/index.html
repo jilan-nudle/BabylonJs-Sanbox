@@ -107,7 +107,7 @@
     }
 
     const scene1 = async() => {
-        const customer = await BABYLON.LoadAssetContainerAsync("assets/cameraman_walking.glb", scene);
+        const customer = await BABYLON.LoadAssetContainerAsync("assets/man_in_suit.glb", scene);
 
      
         scene.onPointerDown = (evt, pickInfo) => {
@@ -125,7 +125,6 @@
                         mesh.position = markerPosition.clone();
                         mesh.rotationQuaternion = markerRotation.clone();
                         mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
-                        mesh.position.y-=0.5;
                     }
                 });
 
