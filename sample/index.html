@@ -94,10 +94,11 @@
         let markerRotation = new BABYLON.Quaternion();
 
         hitTest.onHitTestResultObservable.add((result) => {
-            if(result.length && isPlaced == false)
+            if(result.length)
             {
                 dot.isVisible = true;
                 result[0].transformationMatrix.decompose(markerScaling, markerRotation, markerPosition);
+                dot.position.copyFrom(markerPosition);
             }else
             {
                 dot.isVisible = false;
