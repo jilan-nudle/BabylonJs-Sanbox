@@ -109,14 +109,6 @@
     const scene1 = async() => {
         const customer = await BABYLON.LoadAssetContainerAsync("assets/cameraman_walking.glb", scene);
 
-        customer.meshes.forEach((mesh) => {
-            if(mesh instanceof BABYLON.Mesh)
-            {
-                mesh.isVisible = true;
-                mesh.position = new BABYLON.Vector3(0, 0, 0);
-                mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3);
-            }
-        });
      
         scene.onPointerDown = (evt, pickInfo) => {
             if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
