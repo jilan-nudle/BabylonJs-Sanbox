@@ -86,6 +86,7 @@
     let markerScaling = new BABYLON.Vector3();
     let markerRotation = new BABYLON.Quaternion();
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    let isPlaced = false;
 
 
     // =============== SCENES =========================
@@ -95,7 +96,7 @@
 
 
         hitTest.onHitTestResultObservable.add((result) => {
-            if(result.length)
+            if(result.length &&)
             {
                 dot.isVisible = true;
                 result[0].transformationMatrix.decompose(markerScaling, markerRotation, markerPosition);
@@ -121,28 +122,31 @@
 
         const caption = new BABYLON.GUI.TextBlock();
         caption.color = "white";
-        caption.text = "sample text";
+        caption.text = "Hi! I'm terry! Could \nyou please do a maintenance check on my car?";
         caption.fontSize = "36px";
 
         customerDialog.addControl(caption);
         advancedTexture.addControl(customerDialog);
+        customerDialog.isVisible = false;
 
 
      
         scene.onPointerDown = (evt, pickInfo) => {
-            if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR)
+            if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR && isPlaced == true)
             {
                 customer.addAllToScene();
                 dot.isVisible = false;
+                customerDialog.isVisible = true;
 
                 customerDialog.linkWithMesh(customer.meshes[0]);
+
+                isPlaced = true;
 
                 customer.meshes.forEach((mesh) => {
                     if(mesh instanceof BABYLON.Mesh)
                     {
                         mesh.isVisible = true;
                         mesh.position = markerPosition.clone();
-                        //mesh.rotationQuaternion = markerRotation.clone();
                         mesh.scaling = new BABYLON.Vector3(0.03, 0.03, 0.03);
                     }
                 });
