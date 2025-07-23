@@ -77,24 +77,6 @@
     light.intensity = 0.7;
 
 
-    // =============== ANIMATIONS =========================
-
-    const elevate = new BABYLON.Animation(
-            "elevateY",
-            "position.y",
-            30,
-            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT,
-        );
-
-
-        const keys = [
-            {frame: 0, value: 1},
-            {frame: 30, value: 2},
-        ];
-
-        elevate.setKeys(keys);
-
 
     // =============== GLOBAL VARIABLES =========================
     const xr = await scene.createDefaultXRExperienceAsync({uiOptions: {sessionMode: "immersive-ar",},optionalFeatures: ["hit-test"],});
@@ -205,6 +187,25 @@
         car.meshes[0].position = markerPosition.clone();
 
         const frontTyre = car.meshes.find(mesh => mesh.id === "Front_wheel.001_Black_0");
+
+        const elevate = new BABYLON.Animation(
+            "elevateY",
+            "position.y",
+            30,
+            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT,
+        );
+
+
+
+        const keys = [
+            {frame: 0, value: frontTyre.position.y},
+            {frame: 30, value: frontTyre.position.y + 1},
+        ];
+
+        elevate.setKeys(keys);
+
+
         frontTyre.animations = [elevate];
 
         setTimeout(() => {
