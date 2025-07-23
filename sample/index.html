@@ -87,6 +87,9 @@
     let markerRotation = new BABYLON.Quaternion();
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
     let isPlaced = false;
+    const customer = await BABYLON.LoadAssetContainerAsync("assets/man_in_suit.glb", scene);
+    const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
+    const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene); car.isVisible = false;
 
 
     // =============== SCENES =========================
@@ -109,8 +112,6 @@
     }
 
     const scene1 = async() => {
-        const customer = await BABYLON.LoadAssetContainerAsync("assets/man_in_suit.glb", scene);
-        const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
 
         customerDialog.background = "black"
         customerDialog.height = "300px";
@@ -165,8 +166,40 @@
                     }
                 });
 
+                car.addAllToScene();
+
+
+                car.meshes.forEach((mesh) => {
+                    if(mesh instanceof BABYLON.Mesh)
+                    {
+                        mesh.isVisible = true;
+                        mesh.position = markerPosition.clone();
+                        mesh.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+                    }
+                });
+
             }
         }
+
+    }
+
+    const scene2 = async() =>{
+        // clearing previous scene
+        customer.isVisible = false;
+        customerDialog.isVisible = false;
+
+        // main function logic
+        car.meshes.forEach((mesh) => {
+            if(mesh instanceof BABYLON.Mesh)
+            {
+                mesh.isVisible = true;
+                mesh.position = markerPosition.clone();
+                mesh.scaling = new BABYLON.Vector3(0.03, 0.03, 0.03);
+            }
+        });
+
+
+        
 
     }
 
