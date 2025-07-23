@@ -89,6 +89,7 @@
     let isPlaced = false;
     const customer = await BABYLON.LoadAssetContainerAsync("assets/man_in_suit.glb", scene);
     const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
+    var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
 
 
@@ -134,7 +135,6 @@
         caption.fontSize = "30px";
         caption.textWrapping = true;
 
-        var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
         nextButton.background = "gray";
         nextButton.height = "0.2";
         nextButton.width = "0.2";
@@ -169,9 +169,6 @@
                 });
 
 
-                car.addAllToScene();
-                car.meshes[0].position = markerPosition.clone();
-
             }
         }
 
@@ -184,17 +181,8 @@
 
         // main function logic
         car.addAllToScene();
-        car.meshes.forEach((mesh) => {
-            if(mesh instanceof BABYLON.Mesh)
-            {
-                mesh.isVisible = true;
-                mesh.position = markerPosition.clone();
-                mesh.scaling = new BABYLON.Vector3(0.03, 0.03, 0.03);
-            }
-        });
+        car.meshes[0].position = markerPosition.clone();
 
-
-        
 
     }
 
@@ -203,6 +191,10 @@
     // =============== MAIN =========================
     placeMarker();
     await scene1();
+
+    nextButton.addPointerUpObservable.add(() => {
+        await scene2();
+    });
 
     return scene;
 };
