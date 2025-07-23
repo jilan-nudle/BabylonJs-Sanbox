@@ -203,10 +203,10 @@
         car.addAllToScene();
         car.meshes[0].position = markerPosition.clone();
 
-        car.animations = [elevate];
+        car.meshes[0].animations = [elevate];
 
         setTimeout(() => {
-            scene.beginAnimation(car, 0, 30, true);
+            scene.beginAnimation(car.meshes[0], 0, 30, true);
         }, 1000); // 1000ms = 1 second delay
 
 
