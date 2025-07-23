@@ -91,15 +91,6 @@
     const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
 
-    car.addAllToScene();
-    car.meshes.forEach((mesh) => {
-        if(mesh instanceof BABYLON.Mesh)
-        {
-            mesh.isVisible = true;
-            mesh.position = markerPosition.clone();
-            mesh.scaling = new BABYLON.Vector3(1, 1, 1);
-        }
-    });
 
 
 
@@ -177,6 +168,16 @@
                     }
                 });
 
+
+                car.addAllToScene();
+                car.meshes.forEach((mesh) => {
+                    if(mesh instanceof BABYLON.Mesh)
+                    {
+                        mesh.isVisible = true;
+                        mesh.position = markerPosition.clone();
+                    }
+                });
+
             }
         }
 
@@ -188,6 +189,7 @@
         customerDialog.isVisible = false;
 
         // main function logic
+        car.addAllToScene();
         car.meshes.forEach((mesh) => {
             if(mesh instanceof BABYLON.Mesh)
             {
