@@ -204,10 +204,11 @@
         car.addAllToScene();
         car.meshes[0].position = markerPosition.clone();
 
-        car.meshes[1].animations = [elevate];
+        const frontTyre = scene.getMeshByID("Front_wheel.001_Black_0");
+        frontTyre.animations = [elevate];
 
         setTimeout(() => {
-            scene.beginAnimation(car.meshes[1], 0, 30, true);
+            scene.beginAnimation(frontTyre, 0, 30, true);
         }, 1000); // 1000ms = 1 second delay
 
 
