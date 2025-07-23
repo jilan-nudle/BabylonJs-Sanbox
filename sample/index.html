@@ -91,13 +91,12 @@
     const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
 
-    customer.addAllToScene();
-    customer.meshes.forEach((mesh) => {
+    car.addAllToScene();
+    car.meshes.forEach((mesh) => {
         if(mesh instanceof BABYLON.Mesh)
         {
             mesh.isVisible = true;
             mesh.position = markerPosition.clone();
-            mesh.scaling = new BABYLON.Vector3(0.03, 0.03, 0.03);
         }
     });
 
