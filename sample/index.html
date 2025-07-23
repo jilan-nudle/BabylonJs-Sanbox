@@ -169,10 +169,14 @@
                 car.addAllToScene();
 
 
-        
-                car.meshes[0].isVisible = true;
-                car.meshes[0].position = markerPosition.clone();
-                car.meshes[0].scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+                car.meshes.forEach((mesh) => {
+                    if(mesh instanceof BABYLON.Mesh)
+                    {
+                        mesh.isVisible = true;
+                        mesh.position = markerPosition.clone();
+                        mesh.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+                    }
+                });
 
             }
         }
