@@ -192,7 +192,7 @@
     placeMarker();
     await scene1();
 
-    nextButton.addPointerUpObservable.add(() => {
+    nextButton.onPointerUpObservable.add(async () => {
         await scene2();
     });
 
