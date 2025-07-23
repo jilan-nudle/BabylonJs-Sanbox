@@ -111,8 +111,9 @@
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
     
-    const frontTyre = scene.getMeshByID("Front_wheel.001_Black_0");
+    const frontTyre = car.meshes.find(mesh => mesh.id === "Front_wheel.001_Black_0");
     console.log(frontTyre);
+    console.log(car.meshes);
 
 
 
