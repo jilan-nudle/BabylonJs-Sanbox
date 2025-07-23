@@ -200,7 +200,7 @@
 
         const keys = [
             {frame: 0, value: frontTyre.position.y},
-            {frame: 30, value: frontTyre.position.y + 5},
+            {frame: 30, value: frontTyre.position.y - 3},
         ];
 
         elevate.setKeys(keys);
@@ -210,7 +210,7 @@
 
         setTimeout(() => {
             scene.beginAnimation(frontTyre, 0, 30, true);
-        }, 1000); // 1000ms = 1 second delay
+        }, 2000); // 1000ms = 1 second delay
 
     }
 
