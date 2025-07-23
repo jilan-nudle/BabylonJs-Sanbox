@@ -110,7 +110,9 @@
     const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
-    console.log(car.meshes);
+    
+    const frontTyre = scene.getMeshByID("Front_wheel.001_Black_0");
+    console.log(frontTyre);
 
 
 
