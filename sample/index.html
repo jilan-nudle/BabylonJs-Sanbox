@@ -169,11 +169,11 @@
                 car.addAllToScene();
 
 
+                car.meshes[0] = markerPosition.clone();
                 car.meshes.forEach((mesh) => {
                     if(mesh instanceof BABYLON.Mesh)
                     {
                         mesh.isVisible = true;
-                        mesh.position = markerPosition.clone();
                         mesh.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
                     }
                 });
