@@ -90,7 +90,7 @@
 
         const keys = [
             {frame: 0, value: 1},
-            {frame: 30, value: 3},
+            {frame: 30, value: 0.4},
         ];
 
         elevate.setKeys(keys);
@@ -201,12 +201,12 @@
 
         // main function logic
         car.addAllToScene();
-        car.meshes[0].position = markerPosition.clone();
+        car.meshes[1].position = markerPosition.clone();
 
-        car.meshes[0].animations = [elevate];
+        car.meshes[1].animations = [elevate];
 
         setTimeout(() => {
-            scene.beginAnimation(car.meshes[0], 0, 30, true);
+            scene.beginAnimation(car.meshes[1], 0, 30, true);
         }, 1000); // 1000ms = 1 second delay
 
 
