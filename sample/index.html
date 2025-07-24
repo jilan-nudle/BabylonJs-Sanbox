@@ -258,6 +258,7 @@
 
         setTimeout(() => {
             startWorldYAnimation(frontTyre, -8,0,-4, () => {
+                tireDialog.isVisible = true;
                 tireDialog.linkWithMesh(frontTyre);
             });
         }, 2000);
