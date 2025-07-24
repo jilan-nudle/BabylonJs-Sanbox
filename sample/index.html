@@ -104,9 +104,16 @@
 
         const animatable = scene.beginAnimation(mesh, 0, 30, false);
 
-        if (onComplete) {
-            animatable.onAnimationEnd = onComplete;
-        }
+        animatable.onAnimationEnd = () => {
+            // 💡 Explicitly lock the final position
+            mesh.position = endPos.clone();
+
+            if (onComplete) {
+                onComplete();
+            }
+        };
+
+
     };
 
 
