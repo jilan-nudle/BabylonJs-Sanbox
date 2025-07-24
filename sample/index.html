@@ -134,12 +134,13 @@
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
     
     car.addAllToScene();
+    const frontTyre = car.meshes.find(mesh => mesh.id === "Front_wheel.001_Black_0");
     setTimeout(() => {
             startWorldYAnimation(frontTyre, 0,0,-4, () => {
                 startWorldYAnimation(frontTyre, -8, 0, 0);
             });
         }, 2000);
-    console.log("End position:", car.postion.toString());
+    console.log("End position:", car.position);
 
 
     // =============== SCENES =========================
