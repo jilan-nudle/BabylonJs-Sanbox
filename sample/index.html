@@ -106,7 +106,7 @@
 
         animatable.onAnimationEnd = () => {
             // 💡 Explicitly lock the final position
-            mesh.position = endPos.clone();
+            mesh.setAbsolutePosition(endPos);
 
             if (onComplete) {
                 onComplete();
