@@ -222,7 +222,9 @@
 
 
         setTimeout(() => {
-            startWorldYAnimation(frontTyre, 0,0,-4);
+            startWorldYAnimation(frontTyre, 0,0,-4, () => {
+                startWorldYAnimation(frontTyre, -8, 0, 0);
+            });
         }, 2000);
     }
 
