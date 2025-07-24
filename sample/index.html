@@ -133,8 +133,13 @@
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
     
-
-
+    car.addAllToScene();
+    setTimeout(() => {
+            startWorldYAnimation(frontTyre, 0,0,-4, () => {
+                startWorldYAnimation(frontTyre, -8, 0, 0);
+            });
+        }, 2000);
+    console.log("End position:", endPos.toString());
 
 
     // =============== SCENES =========================
