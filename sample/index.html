@@ -77,6 +77,31 @@
     light.intensity = 0.7;
 
 
+    // =============== ANIMATION =========================
+
+    const startWorldYAnimation = (mesh, deltaY, duration = 1000) => {
+        const startPos = mesh.getAbsolutePosition().clone();
+        const endPos = startPos.clone();
+        endPos.y += deltaY;
+
+        const anim = new BABYLON.Animation(
+            "worldYAnim",
+            "position",
+            30,
+            BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT
+        );
+
+        const keys = [
+            { frame: 0, value: startPos },
+            { frame: 30, value: endPos }
+        ];
+
+        anim.setKeys(keys);
+        mesh.animations = [anim];
+        scene.beginAnimation(mesh, 0, 30, false);
+    };
+
 
     // =============== GLOBAL VARIABLES =========================
     const xr = await scene.createDefaultXRExperienceAsync({uiOptions: {sessionMode: "immersive-ar",},optionalFeatures: ["hit-test"],});
@@ -174,7 +199,6 @@
 
             }
         }
-
     }
 
     const scene2 = async() =>{
@@ -188,30 +212,10 @@
 
         const frontTyre = car.meshes.find(mesh => mesh.id === "Front_wheel.001_Black_0");
 
-        const elevate = new BABYLON.Animation(
-            "elevateY",
-            "position.y",
-            30,
-            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT,
-        );
-
-
-
-        const keys = [
-            {frame: 0, value: frontTyre.position.y},
-            {frame: 30, value: frontTyre.position.y - 3},
-        ];
-
-        elevate.setKeys(keys);
-
-
-        frontTyre.animations = [elevate];
 
         setTimeout(() => {
-            scene.beginAnimation(frontTyre, 0, 30, true);
-        }, 2000); // 1000ms = 1 second delay
-
+            startWorldYAnimation(frontTyre, 1);
+        }, 2000);
     }
 
 
