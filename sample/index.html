@@ -133,7 +133,22 @@
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
 
     
+    const tireVidDialog = new BABYLON.GUI.Rectangle("tire_video_dialog", scene);
+    tireVidDialog.background = "black";
+    tireVidDialog.height = "300px";
+    tireVidDialog.alpha = 0.5;
+    tireVidDialog.width = "300px";
+    tireVidDialog.cornerRadius = 20;
+    tireVidDialog.thickness = 1;
+    tireVidDialog.zIndex = 5;
 
+    //const material = new BABYLON.StandardMaterial("material", scene);
+    //const texture = new BABYLON.VideoTexture("vidtex","assets/TireVideo.mp4", scene);
+
+    //material.emissiveColor = new BABYLON.Color3.White();
+    //material.diffuseTexture = texture;
+
+    advancedTexture.addControl(tireDialog);
 
     // =============== SCENES =========================
 
