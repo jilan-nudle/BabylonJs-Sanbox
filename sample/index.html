@@ -134,14 +134,6 @@
     const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
-    
-    car.addAllToScene();
-    const frontTyre = car.meshes.find(mesh => mesh.id === "Front_wheel.001_Black_0");
-    setTimeout(() => {
-            startWorldYAnimation(frontTyre, 0,0,-4, () => {
-                startWorldYAnimation(frontTyre, -8, 0, 0);
-            });
-        }, 2000);
 
 
     // =============== SCENES =========================
@@ -236,9 +228,7 @@
 
 
         setTimeout(() => {
-            startWorldYAnimation(frontTyre, 0,0,-4, () => {
-                startWorldYAnimation(frontTyre, -8, 0, 0);
-            });
+            startWorldYAnimation(frontTyre, -8,0,-4);
         }, 2000);
     }
 
