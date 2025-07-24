@@ -132,7 +132,7 @@
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
 
-    const tireVidDialog = new BABYLON.GUI.CreatePlane("tire_video_dialog", scene);
+    const tireVidDialog = new BABYLON.GUI.Rectangle("tire_video_dialog", scene);
     tireVidDialog.background = "black";
     tireVidDialog.height = "600px";
     tireVidDialog.alpha = 0.5;
