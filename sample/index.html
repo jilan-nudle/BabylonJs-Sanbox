@@ -79,10 +79,12 @@
 
     // =============== ANIMATION =========================
 
-    const startWorldYAnimation = (mesh, deltaY, onComplete) => {
+    const startWorldYAnimation = (mesh, deltaX, deltaY, deltaZ, onComplete) => {
         const startPos = mesh.getAbsolutePosition().clone();
         const endPos = startPos.clone();
+        endPos.x += deltaX;
         endPos.y += deltaY;
+        endPos.z += deltaZ;
 
         const anim = new BABYLON.Animation(
             "worldYAnim",
@@ -220,7 +222,7 @@
 
 
         setTimeout(() => {
-            startWorldYAnimation(frontTyre, -3);
+            startWorldYAnimation(frontTyre, 0,0,-4);
         }, 2000);
     }
 
