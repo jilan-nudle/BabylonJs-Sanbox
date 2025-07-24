@@ -79,10 +79,10 @@
 
     // =============== ANIMATION =========================
 
-    const startWorldYAnimation = (mesh, deltaY, duration = 1000) => {
+    const startWorldYAnimation = (mesh, deltaY, onComplete) => {
         const startPos = mesh.getAbsolutePosition().clone();
         const endPos = startPos.clone();
-        endPos.x += deltaY;
+        endPos.y += deltaY;
 
         const anim = new BABYLON.Animation(
             "worldYAnim",
@@ -99,8 +99,14 @@
 
         anim.setKeys(keys);
         mesh.animations = [anim];
-        scene.beginAnimation(mesh, 0, 30, false);
+
+        const animatable = scene.beginAnimation(mesh, 0, 30, false);
+
+        if (onComplete) {
+            animatable.onAnimationEnd = onComplete;
+        }
     };
+
 
 
     // =============== GLOBAL VARIABLES =========================
