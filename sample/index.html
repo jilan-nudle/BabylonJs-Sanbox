@@ -107,9 +107,8 @@
         animatable.onAnimationEnd = () => {
             // 💡 Explicitly lock the final position
             mesh.setAbsolutePosition(endPos);
-
+            console.log(mesh.position);
             if (onComplete) {
-                console.log(mesh.position);
                 onComplete();
             }
         };
