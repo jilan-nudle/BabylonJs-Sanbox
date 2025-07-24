@@ -107,9 +107,6 @@
         const animatable = scene.beginAnimation(mesh, 0, 30, false);
 
         animatable.onAnimationEnd = () => {
-            // 💡 Explicitly lock the final position
-            
-            console.log(mesh.position);
             if (onComplete){
                 onComplete();
             }
@@ -188,8 +185,6 @@
         advancedTexture.addControl(customerDialog);
         customerDialog.isVisible = false;
 
-
-     
         scene.onPointerDown = (evt, pickInfo) => {
             if(hitTest && xr.baseExperience.state === BABYLON.WebXRState.IN_XR && isPlaced == false)
             {
@@ -226,9 +221,45 @@
 
         const frontTyre = car.meshes.find(mesh => mesh.id === "Front_wheel.001_Black_0");
 
+        const tireDialog = new BABYLON.GUI.Rectangle("customer_dialog");
+        var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
+
+        tireDialog.background = "black"
+        tireDialog.height = "300px";
+        tireDialog.alpha = 0.5;
+        tireDialog.width = "600px";
+        tireDialog.cornerRadius = 20;
+        tireDialog.thickness = 1;
+        tireDialog.zIndex = 5;
+
+        const panel = new BABYLON.GUI.StackPanel();
+        panel.width = "600px";
+        panel.height = "300px";
+        
+
+        const caption = new BABYLON.GUI.TextBlock();
+        caption.color = "white";
+        caption.text = "sample text";
+        caption.fontSize = "30px";
+        caption.textWrapping = true;
+
+        nextButton.background = "gray";
+        nextButton.height = "0.2";
+        nextButton.width = "0.2";
+        nextButton.fontSize = "20px";
+
+        panel.addControl(caption);
+        panel.addControl(nextButton);
+        tireDialog.addControl(panel);
+
+        advancedTexture.addControl(tireDialog);
+        tireDialog.isVisible = false;
+
 
         setTimeout(() => {
-            startWorldYAnimation(frontTyre, -8,0,-4);
+            startWorldYAnimation(frontTyre, -8,0,-4, () => {
+                tireDialog.linkWithMesh(frontTyre);
+            });
         }, 2000);
     }
 
