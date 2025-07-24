@@ -82,7 +82,7 @@
     const startWorldYAnimation = (mesh, deltaY, duration = 1000) => {
         const startPos = mesh.getAbsolutePosition().clone();
         const endPos = startPos.clone();
-        endPos.y += deltaY;
+        endPos.x += deltaY;
 
         const anim = new BABYLON.Animation(
             "worldYAnim",
