@@ -132,7 +132,24 @@
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
 
+    const plane = BABYLON.MeshBuilder.CreatePlane("plane", {
+                    height: 0.37, 
+                    width: 0.675, 
+                    sideOrientation: BABYLON.Mesh.DOUBLESIDE
+            } ,scene);
+            plane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
 
+            const material = new BABYLON.StandardMaterial("material", scene);
+            const texture = new BABYLON.VideoTexture("vidtex", ["assets/TireVideo.mp4"], scene, true, true, BABYLON.VideoTexture.TRILINEAR_SAMPLINGMODE, { autoPlay: true, loop: true, muted: true });
+
+
+            material.diffuseTexture = texture;
+            material.emissiveColor = new BABYLON.Color3.White();
+
+
+            plane.material = material;
+            //plane.linkWithMesh(frontTyre);
+            plane.parent = car;
     
 
     // =============== SCENES =========================
