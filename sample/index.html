@@ -133,6 +133,11 @@
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
     
 
+    const plane = BABYLON.MeshBuilder.CreatePlane("plane", { 
+        width: 2, 
+        height: 2
+    }, scene);
+
     // =============== SCENES =========================
 
     const placeMarker = () => {
