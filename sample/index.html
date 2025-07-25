@@ -132,8 +132,6 @@
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
     
-
-    
     car.addAllToScene();
 
     const plane = BABYLON.MeshBuilder.CreatePlane("plane", { 
@@ -141,7 +139,7 @@
         height: 2
     }, scene);
 
-    plane.parent = car;
+    plane.parent = car.meshes[0];
 
     // =============== SCENES =========================
 
