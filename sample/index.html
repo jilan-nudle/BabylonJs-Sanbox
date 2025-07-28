@@ -135,11 +135,11 @@
 
     // main function logic
         car.addAllToScene();
-        car.meshes[0].position = markerPosition.clone();
+        //car.meshes[0].position = markerPosition.clone();
 
         headlight.addAllToScene();
         const headlightRoot = headlight.meshes.find(mesh => mesh.id === "__root__");
-        headlightRoot.position = markerPosition.clone();
+        //headlightRoot.position = markerPosition.clone();
 
         setTimeout(() => {
             startWorldYAnimation(headlightRoot, -8,0,-4, () => {
