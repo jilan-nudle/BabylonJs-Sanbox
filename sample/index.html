@@ -301,8 +301,8 @@
 
                 // ---------- Top Rectangle with Text ----------
                 const topRect = new BABYLON.GUI.Rectangle();
-                topRect.width = "200px";
-                topRect.height = "40px";
+                topRect.width = "300px";
+                topRect.height = "50px";
                 topRect.color = "white";
                 topRect.thickness = 2;
                 topRect.background = "#555";
@@ -316,8 +316,8 @@
 
                 // ---------- Root Rectangle (100x100) ----------
                 const rootRect = new BABYLON.GUI.Rectangle();
-                rootRect.width = "100px";
-                rootRect.height = "100px";
+                rootRect.width = "300px";
+                rootRect.height = "300px";
                 rootRect.color = "white";
                 rootRect.thickness = 2;
                 rootRect.background = "#222";
@@ -359,6 +359,7 @@
             // end
 
             texture.video.addEventListener("ended", () => {
+                plane.isVisible = false;
                 stackPanel.isVisible = true;
             });
 
