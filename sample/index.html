@@ -133,9 +133,6 @@
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
     const headlight = await BABYLON.LoadAssetContainerAsync("assets/round_headlight.glb", scene);
 
-    headlight.addAllToScene();
-        const headlightRoot = car.meshes.find(mesh => mesh.id === "__root__");
-        headlightRoot.position = markerPosition.clone();
 
     // =============== SCENES =========================
 
@@ -383,7 +380,14 @@
         headlight.addAllToScene();
         const headlightRoot = car.meshes.find(mesh => mesh.id === "__root__");
         headlightRoot.position = markerPosition.clone();
-        // comment
+
+        setTimeout(() => {
+            startWorldYAnimation(headlightRoot, -8,0,-4, () => {
+                // Do nothing.
+            });
+        }, 2000);
+        
+
 
     }
 
