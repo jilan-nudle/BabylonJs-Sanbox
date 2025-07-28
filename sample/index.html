@@ -289,8 +289,77 @@
 
             plane.isPickable = true;
 
+
+            // The multichoice grid.
+
+            const stackPanel = new BABYLON.GUI.StackPanel();
+                stackPanel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+                stackPanel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+                stackPanel.isVertical = true;
+                stackPanel.spacing = 10; // optional spacing between elements
+                advancedTexture.addControl(stackPanel);
+
+                // ---------- Top Rectangle with Text ----------
+                const topRect = new BABYLON.GUI.Rectangle();
+                topRect.width = "200px";
+                topRect.height = "40px";
+                topRect.color = "white";
+                topRect.thickness = 2;
+                topRect.background = "#555";
+                stackPanel.addControl(topRect);
+
+                const topText = new BABYLON.GUI.TextBlock();
+                topText.text = "Choose the right option";
+                topText.color = "white";
+                topText.fontSize = 13;
+                topRect.addControl(topText);
+
+                // ---------- Root Rectangle (100x100) ----------
+                const rootRect = new BABYLON.GUI.Rectangle();
+                rootRect.width = "100px";
+                rootRect.height = "100px";
+                rootRect.color = "white";
+                rootRect.thickness = 2;
+                rootRect.background = "#222";
+                stackPanel.addControl(rootRect);
+
+                // ---------- Grid inside the Root Rectangle ----------
+                const grid = new BABYLON.GUI.Grid();
+                grid.addColumnDefinition(0.5);
+                grid.addColumnDefinition(0.5);
+                grid.addRowDefinition(0.5);
+                grid.addRowDefinition(0.5);
+                grid.width = "100%";
+                grid.height = "100%";
+                rootRect.addControl(grid);
+
+                // Helper to create buttons
+                function createLabeledButton(label, bgColor, onClick) {
+                    const button = BABYLON.GUI.Button.CreateSimpleButton("btn", label);
+                    button.width = "100%";
+                    button.height = "100%";
+                    button.background = bgColor;
+                    button.color = "white";
+                    button.fontSize = 14;
+                    button.thickness = 1;
+                    if (onClick) {
+                        button.onPointerUpObservable.add(onClick);
+                    }
+                    return button;
+                }
+
+                // Add buttons to the grid
+                grid.addControl(createLabeledButton("1", "#e74c3c", () => console.log("Clicked 1")), 0, 0);
+                grid.addControl(createLabeledButton("2", "#2ecc71", () => console.log("Clicked 2")), 0, 1);
+                grid.addControl(createLabeledButton("3", "#3498db", () => console.log("Clicked 3")), 1, 0);
+                grid.addControl(createLabeledButton("4", "#f1c40f", () => console.log("Clicked 4")), 1, 1);
+
+                stackPanel.isVisible = false;
+
+            // end
+
             texture.video.addEventListener("ended", () => {
-                plane.isVisible = false;
+                stackPanel.isVisible = true;
             });
 
             
