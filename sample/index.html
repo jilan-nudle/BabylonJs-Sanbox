@@ -134,18 +134,6 @@
     const headlight = await BABYLON.LoadAssetContainerAsync("assets/round_headlight.glb", scene);
 
     // main function logic
-        car.addAllToScene();
-        //car.meshes[0].position = markerPosition.clone();
-
-        headlight.addAllToScene();
-        const headlightRoot = headlight.meshes.find(mesh => mesh.id === "__root__");
-        //headlightRoot.position = markerPosition.clone();
-
-        setTimeout(() => {
-            startWorldYAnimation(headlightRoot, 0,1,0, () => {
-                // Do nothing.
-            });
-        }, 2000);
 
 
     // =============== SCENES =========================
@@ -392,11 +380,19 @@
         car.meshes[0].position = markerPosition.clone();
 
         headlight.addAllToScene();
+
+        headlight.meshes.forEach((mesh) => {
+            if(mesh instanceof BABYLON.Mesh)
+            {
+                mesh.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
+            }
+        });
+
         const headlightRoot = headlight.meshes.find(mesh => mesh.id === "__root__");
         headlightRoot.position = markerPosition.clone();
 
         setTimeout(() => {
-            startWorldYAnimation(headlightRoot, -8,0,-4, () => {
+            startWorldYAnimation(headlightRoot, 0,1,0, () => {
                 // Do nothing.
             });
         }, 2000);
