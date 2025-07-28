@@ -384,18 +384,58 @@
         headlight.meshes.forEach((mesh) => {
             if(mesh instanceof BABYLON.Mesh)
             {
-                mesh.scaling = new BABYLON.Vector3(0.4, 0.4, 0.4);
+                mesh.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5);
             }
         });
 
         const headlightRoot = headlight.meshes.find(mesh => mesh.id === "__root__");
         headlightRoot.position = markerPosition.clone();
 
+
+        const hlDialog = new BABYLON.GUI.Rectangle("customer_dialog");
+        var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
+
+        hlDialog.background = "black"
+        hlDialog.height = "300px";
+        hlDialog.alpha = 0.5;
+        hlDialog.width = "600px";
+        hlDialog.cornerRadius = 20;
+        hlDialog.thickness = 1;
+        hlDialog.zIndex = 5;
+
+        const panel = new BABYLON.GUI.StackPanel();
+        panel.width = "600px";
+        panel.height = "300px";
+        
+        const caption = new BABYLON.GUI.TextBlock();
+        caption.color = "white";
+        caption.text = "To check a car headlight, first turn it on to ensure it lights up properly. Inspect the lens for cracks, fogging, or moisture inside, which can reduce visibility. Check the brightness and aim by shining it on a wall—misalignment can impair driving safety. Replace dim or flickering bulbs promptly";
+        caption.fontSize = "30px";
+        caption.textWrapping = true;
+
+        nextButton.background = "gray";
+        nextButton.height = "0.2";
+        nextButton.width = "0.2";
+        nextButton.fontSize = "20px";
+
+        panel.addControl(caption);
+        panel.addControl(nextButton);
+        hlDialog.addControl(panel);
+
+        advancedTexture.addControl(hlDialog);
+        hlDialog.isVisible = false;
+
+
+
         setTimeout(() => {
-            startWorldYAnimation(headlightRoot, 0,1,0, () => {
-                // Do nothing.
+            startWorldYAnimation(headlightRoot, 0,0.4,0, () => {
+                hlDialog.isVisible = true;
+                hlDialog.linkWithMesh(headlightRoot);
             });
         }, 2000);
+
+
+
 
     }
 
