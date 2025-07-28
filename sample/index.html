@@ -151,7 +151,17 @@
 
             plane.material = material;
 
-    plane.parent = car.meshes[0];
+            plane.parent = car.meshes[0];
+
+            plane.isPickable = true;
+
+            scene.onPointerDown = function (evt, pickInfo) {
+                if (pickInfo.hit && pickInfo.pickedMesh === plane) {
+                    plane.isVisible = false;
+                }
+            };
+
+
 
     // =============== SCENES =========================
 
