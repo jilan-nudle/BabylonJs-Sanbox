@@ -371,7 +371,14 @@
     }
 
 
+    const scene02 = async() => {
+        customer.isVisible = false;
+        customerDialog.isVisible = false;
 
+        // main function logic
+        car.addAllToScene();
+        car.meshes[0].position = markerPosition.clone();
+    }
 
 
     const Scene3 = async() => {
@@ -385,7 +392,7 @@
     await scene1();
 
     nextButton.onPointerUpObservable.add(async () => {
-        await scene2();
+        await scene02();
     });
 
     return scene;
