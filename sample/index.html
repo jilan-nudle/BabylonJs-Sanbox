@@ -131,6 +131,7 @@
     const customerDialog = new BABYLON.GUI.Rectangle("customer_dialog");
     var nextButton = BABYLON.GUI.Button.CreateSimpleButton("next_button", "Next");
     const car = await BABYLON.LoadAssetContainerAsync("assets/low-poly_truck_car_drifter.glb", scene);
+    const headlight = await BABYLON.LoadAssetContainerAsync("assets/round_headlight.glb", scene);
 
 
     // =============== SCENES =========================
@@ -375,6 +376,11 @@
         // main function logic
         car.addAllToScene();
         car.meshes[0].position = markerPosition.clone();
+
+        headlight.addAllToScene();
+        const headlightRoot = car.meshes.find(mesh => mesh.id === "__root__");
+        headlightRoot.position = markerPosition.clone();
+
     }
 
 
