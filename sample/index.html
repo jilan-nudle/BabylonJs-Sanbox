@@ -306,7 +306,15 @@
 
             plane.material = material;
             //plane.linkWithMesh(frontTyre);
-            //plane.parent = car;
+            plane.parent = car;
+
+            plane.isPickable = true;
+
+            scene.onPointerDown = function (evt, pickInfo) {
+                if (pickInfo.hit && pickInfo.pickedMesh === plane) {
+                    plane.isVisible = false;
+                }
+            };
 
 
         });
